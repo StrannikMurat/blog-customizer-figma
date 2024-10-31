@@ -27,7 +27,7 @@ export const ArticleParamsForm = ({
 	articleState,
 	setArticleState,
 }: ArticleParamsFormProps) => {
-	const [isOpen, setIsOpen] = useState(false);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [fontFamily, setFontFamily] = useState(articleState.fontFamilyOption);
 	const [fontSize, setFontsize] = useState(articleState.fontSizeOption);
 	const [fontColor, setFontColor] = useState(articleState.fontColor);
@@ -59,58 +59,63 @@ export const ArticleParamsForm = ({
 	};
 
 	useOutsideClickClose({
-		isOpen: isOpen,
+		isOpen: isMenuOpen,
 		rootRef: ref,
-		onClose: () => setIsOpen(false),
-		onChange: (newValue) => setIsOpen(newValue),
+		onClose: () => setIsMenuOpen(false),
+		onChange: (newValue) => setIsMenuOpen(newValue),
 	});
 
 	return (
 		<div ref={ref}>
-			<ArrowButton onClick={() => setIsOpen(!isOpen)} isOpen={isOpen} />
+			<ArrowButton
+				onClick={() => setIsMenuOpen(!isMenuOpen)}
+				isOpen={isMenuOpen}
+			/>
 			<aside
 				className={clsx(styles.container, {
-					[styles.container_open]: isOpen,
+					[styles.container_open]: isMenuOpen,
 				})}>
 				<form
 					className={styles.form}
 					onSubmit={handleSubmitForm}
 					onReset={handleResetForm}>
-					<Text size={31} weight={800} uppercase>
-						Задайте параметры
-					</Text>
-					<Select
-						selected={fontFamily}
-						options={fontFamilyOptions}
-						title='шрифт'
-						onChange={setFontFamily}
-					/>
-					<RadioGroup
-						selected={fontSize}
-						options={fontSizeOptions}
-						name='fontSize'
-						title='размер шрифта'
-						onChange={setFontsize}
-					/>
-					<Select
-						selected={fontColor}
-						options={fontColors}
-						title='цвет шрифта'
-						onChange={setFontColor}
-					/>
-					<Separator />
-					<Select
-						selected={backgroundColor}
-						options={backgroundColors}
-						title='цвет фона'
-						onChange={setBackgroundColor}
-					/>
-					<Select
-						selected={contentWidth}
-						options={contentWidthArr}
-						title='ширина контента'
-						onChange={setContentWidth}
-					/>
+					<div className={styles.upperContainer}>
+						<Text size={31} weight={800} uppercase>
+							Задайте параметры
+						</Text>
+						<Select
+							selected={fontFamily}
+							options={fontFamilyOptions}
+							title='шрифт'
+							onChange={setFontFamily}
+						/>
+						<RadioGroup
+							selected={fontSize}
+							options={fontSizeOptions}
+							name='fontSize'
+							title='размер шрифта'
+							onChange={setFontsize}
+						/>
+						<Select
+							selected={fontColor}
+							options={fontColors}
+							title='цвет шрифта'
+							onChange={setFontColor}
+						/>
+						<Separator />
+						<Select
+							selected={backgroundColor}
+							options={backgroundColors}
+							title='цвет фона'
+							onChange={setBackgroundColor}
+						/>
+						<Select
+							selected={contentWidth}
+							options={contentWidthArr}
+							title='ширина контента'
+							onChange={setContentWidth}
+						/>
+					</div>
 					<div className={styles.bottomContainer}>
 						<Button title='Сбросить' htmlType='reset' type='clear' />
 						<Button title='Применить' htmlType='submit' type='apply' />

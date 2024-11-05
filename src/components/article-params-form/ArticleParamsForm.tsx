@@ -61,8 +61,8 @@ export const ArticleParamsForm = ({
 	useOutsideClickClose({
 		isOpen: isMenuOpen,
 		rootRef: ref,
-		onClose: () => setIsMenuOpen(false),
 		onChange: (newValue) => setIsMenuOpen(newValue),
+		onClose: () => setIsMenuOpen(false),
 	});
 
 	return (
